@@ -119,7 +119,7 @@
       chatBox.scrollTop = chatBox.scrollHeight;
 
       try {
-        const resposta = await fetch('https://peacehealth-ia-6rri.vercel.app/#', {
+        const resposta = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ mensagem })
