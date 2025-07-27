@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>PeaceHealth.IA</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>PeaceHealth.IA</h1>
+        <p class="slogan">Sua escuta emocional com inteligência</p>
+    </header>
+
+    <main>
+        <section class="apresentacao">
+            <h2>Bem-vindo ao seu espaço de paz mental</h2>
+            <p>
+                Aqui você encontra uma escuta imediata, empática e sem julgamentos.
+                Nossa Inteligência Artificial foi treinada para atuar como apoio emocional emergencial,
+                ajudando você a organizar sentimentos, buscar respostas e encontrar calma, mesmo nos momentos mais difíceis.
+            </p>
+            <p>
+                Sem login, sem burocracia. Apenas você e a IA, de forma privada e respeitosa.
+            </p>
+            <a href="chat.html" class="btn">💬 Vamos conversar</a>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 PeaceHealth.IA – Sua paz começa aqui</p>
+    </footer>
+
+    <div class="chat-trigger" onclick="abrirChat()">💬</div>
+
+    <div class="chat-popup" id="chatPopup">
+      <div class="chat-header">
+        Converse com você mesmo
+        <button class="btn-close" onclick="fecharChat()">×</button>
+      </div>
+      <form id="formReflexao">
+        <label for="pergunta1">🧠 O que está te incomodando agora?</label>
+        <textarea id="pergunta1" required></textarea>
+
+        <label for="pergunta2">💭 Qual pensamento mais insiste na sua mente hoje?</label>
+        <textarea id="pergunta2" required></textarea>
+
+        <label for="pergunta3">🕊️ Há algo que você gostaria de ouvir agora?</label>
+        <input type="text" id="pergunta3" required>
+
+        <label for="pergunta4">🌱 Lembra de algo que te fez sorrir recentemente?</label>
+        <input type="text" id="pergunta4" required>
+
+        <button type="submit" class="btn-form">Enviar</button>
+      </form>
+    </div>
+
+    <script>
+      function abrirChat() {
+        document.getElementById('chatPopup').style.display = 'flex';
+      }
+
+      function fecharChat() {
+        document.getElementById('chatPopup').style.display = 'none';
+      }
+
+      document.getElementById("formReflexao").addEventListener("submit", function(e) {
+        e.preventDefault();
+        // Ação para o formulário de reflexão.
+        // Você pode coletar os dados aqui e talvez enviá-los para um backend
+        // (que não seja a API do DialoGPT, a menos que você queira que a IA comente sobre as respostas).
+        alert("Obrigado por compartilhar. Respire fundo. 🌿");
+        fecharChat();
+        // Limpar o formulário após o envio
+        document.getElementById("formReflexao").reset();
+      });
+    </script>
+</body>
+</html>

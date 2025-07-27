@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chat - PeaceHealth.IA</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background-color: #f3f7f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: #357C74;
+    }
+
+    #chat-box {
+      width: 100%;
+      max-width: 600px;
+      height: 400px;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 10px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mensagem {
+      margin: 8px 0;
+      word-wrap: break-word;
+    }
+
+    .user {
+      color: #2E3A59;
+      font-weight: bold;
+      text-align: right;
+      margin-left: auto;
+      background-color: #e0f7fa;
+      padding: 8px 12px;
+      border-radius: 15px 15px 0 15px;
+      max-width: 80%;
+    }
+
+    .ia {
+      color: #357C74;
+      background-color: #e8f5e9;
+      padding: 8px 12px;
+      border-radius: 15px 15px 15px 0;
+      max-width: 80%;
+    }
+
+    form {
+      display: flex;
+      width: 100%;
+      max-width: 600px;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #357C74;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #285e59;
+    }
+  </style>
+</head>
+<body>
+  <h1>Seu Psicólogo IA 🧠</h1>
+  <div id="chat-box"></div>
+
+  <form id="formulario">
+    <input type="text" id="mensagem" placeholder="Como você está se sentindo?" autocomplete="off" required />
+    <button type="submit">Enviar</button>
+  </form>
+
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    const formulario = document.getElementById('formulario');
+    const inputMensagem = document.getElementById('mensagem');
+
+    formulario.addEventListener('submit', async function(event) {
+      event.preventDefault();
+
+      const mensagem = inputMensagem.value.trim();
+      if (!mensagem) return;
+
+      const userDiv = document.createElement('div');
+      userDiv.className = 'mensagem user';
+      userDiv.textContent = mensagem;
+      chatBox.appendChild(userDiv);
+
+      inputMensagem.value = '';
+
+      const respostaDiv = document.createElement('div');
+      respostaDiv.className = 'mensagem ia';
+      respostaDiv.textContent = 'Pensando...';
+      chatBox.appendChild(respostaDiv);
+      chatBox.scrollTop = chatBox.scrollHeight;
+
+      try {
+        const resposta = await fetch('https://peacehealth-ia-6rri.vercel.app/#', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mensagem })
+        });
+
+        const data = await resposta.json();
+        respostaDiv.textContent = data.resposta || "Sem resposta.";
+        chatBox.scrollTop = chatBox.scrollHeight;
+      } catch (err) {
+        respostaDiv.textContent = "Erro ao se comunicar com a IA.";
+      }
+    });
+  </script>
+</body>
+</html>
